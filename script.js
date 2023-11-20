@@ -1,6 +1,17 @@
 
-// Get eye elements
+// Iggy position and offset
+var iggyX = 0, iggyY = 0;
+var iggyImg = document.getElementsByClassName('iggy-img')[0];
+var leftOffset = iggyImg.width / 2 * -1;
+var topOffset = iggyImg.height / 2 * -1;
+
+// Mouse position
+var x, y;
+
+// Get elements
 const eyes = document.querySelectorAll('.eyeball');
+const iggy = document.querySelectorAll('.iggy')[0];
+
 
 // Both mouse and touch screen
 const events = ["mousemove", "touchmove"];
@@ -16,26 +27,33 @@ function isTouchDevice() {
 }
 
 
-// Same function for both mouse and touch events
+// Move eyes
 events.forEach((eventType) => {
     document.body.addEventListener(eventType, (event) => {
+
+        // Cursor position from top left
+        x = !isTouchDevice() ? event.clientX : event.touches[0].clientX;
+        y = !isTouchDevice() ? event.clientY : event.touches[0].clientY;
+
+
         eyes.forEach((eye) => {
-
-            // Eye position from top left
-            let eyeX = eye.getBoundingClientRect().left + eye.clientWidth / 2;
-            let eyeY = eye.getBoundingClientRect().top + eye.clientHeight / 2;
-
-            // Cursor position from top left
-            var x = !isTouchDevice() ? event.clientX : event.touches[0].clientX;
-            var y = !isTouchDevice() ? event.clientY : event.touches[0].clientY;
-            
             // Calculate eye movement
-            var moveX = (eye.clientWidth * x / window.innerWidth) - (eye.clientWidth / 2);
-            var moveY = (eye.clientWidth * y / window.innerHeight) - (eye.clientHeight / 2);
+            var eyeMoveX = (eye.clientWidth * x / window.innerWidth) - (eye.clientWidth / 2);
+            var eyeMoveY = (eye.clientWidth * y / window.innerHeight) - (eye.clientHeight / 2);
 
             // Move eye
-            eye.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+            eye.style.transform = `translate(${eyeMoveX}px, ${eyeMoveY}px)`;
         });
     });
 });
+
+
+// Move Iggy
+setInterval(function(){
+    iggyX += ((x - iggyX) / 6);
+    iggyY += ((y - iggyY) / 6);
+
+    iggy.style.left = `${iggyX + leftOffset}px`;
+    iggy.style.top = `${iggyY + topOffset}px`;
+  }, 50);
 

@@ -29,6 +29,9 @@ body {
 .iggy {
     position: absolute;
     display: flex;
+    height: auto;
+    width: auto;
+    scale: 0.3; 
 }
 
 .eyes-wrapper {
