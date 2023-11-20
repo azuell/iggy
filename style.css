@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-outline: #993366;
+    --color-eye-white: #ffffff;
+    --color-eye-shadow: #c9e7fb;
+    --color-eye-pupil: #052c44;
+}
+
+body {
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: white;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.iggy {
+    position: absolute;
+    display: flex;
+}
+
+.eyes-wrapper {
+    position: absolute;
+    display: flex;
+    scale: 65%;
+    left: -1.2em;
+}
+
+.eye-left {
+    width: 10em;
+    height: 10em;
+    border: 15px solid var(--color-outline);
+    background-color: var(--color-eye-white);
+    box-shadow: inset 2em 2em var(--color-eye-shadow);
+    border-radius: 50%;
+}
+
+.eye-right {
+    width: 10em;
+    height: 10em;
+    border: 15px solid var(--color-outline);
+    background-color: var(--color-eye-white);
+    box-shadow: inset 2em 2em var(--color-eye-shadow);
+    border-radius: 50%;
+    margin-left: -2.2em;
+    margin-top: -1em;
+} 
+
+.eyeball:before {
+    content: "";
+    position: absolute;
+    background-color: var(--color-eye-white);
+    height: 3.5em;
+    width: 3.5em;
+    border-radius: 50%;
+    top: -1em;
+    left: -1em;
+}
+
+.eyeball {
+    height: 5em;
+    width: 5em;
+    background: radial-gradient(var(--color-eye-pupil) 45%, var(--color-outline) 48%);
+    border-radius: 50%;
+    margin: 2.5em 2.5em;
+    position: relative;
+}
+
+
+
+
