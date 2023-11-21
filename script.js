@@ -1,16 +1,17 @@
 
 // Iggy position and offset
-var iggyX = 0, iggyY = 0;
+var iggyX = window.innerWidth / 2, iggyY = window.innerHeight / 2;
 var iggyImg = document.getElementsByClassName('iggy-img')[0];
 var leftOffset = iggyImg.width / 2 * -1;
 var topOffset = iggyImg.height / 2 * -1;
 
 // Mouse position
-var x, y;
+var x = window.innerWidth / 2, y = window.innerHeight / 2;
+console.log(x, y);
 
 // Get elements
 const eyes = document.querySelectorAll('.eyeball');
-const iggy = document.querySelectorAll('.iggy')[0];
+const iggy = document.getElementById('iggy');
 
 
 // Both mouse and touch screen
