@@ -9,8 +9,10 @@ Recreation of the loading screen of Moshi Monsters, in which Iggy would chase yo
 ---
 To Do:
 - [ ] Cursor eating!
-- [ ] Keep Iggy within page borders
+- [x] Keep Iggy within page borders
+- [ ] Keep Bouncing Iggy within page borders
 - [ ] Click to start/stop
 - [ ] Sound effects
-- [ ] Bouncing animation?
+- [x] Bouncing animation
+- [ ] Only bounce when moving
 - [ ] Flicking off cursor animation?
