@@ -33,54 +33,59 @@ function isTouchDevice() {
   }
 }
 
-// Iggy following behaviour
-if (iggyFollow) {
-  // Listen for cursor/touch movement
-  events.forEach((eventType) => {
-    document.body.addEventListener(eventType, (event) => {
+// Listen for cursor/touch movement
+events.forEach((eventType) => {
+  document.body.addEventListener(eventType, (event) => {
 
-      // Update page size
-      pageWidth = document.body.offsetWidth;
-      pageHeight = document.body.offsetHeight;
+    // Update page size
+    pageWidth = document.body.offsetWidth;
+    pageHeight = document.body.offsetHeight;
 
-      // Cursor position from top left
-      x = !isTouchDevice() ? event.clientX : event.touches[0].clientX;
-      y = !isTouchDevice() ? event.clientY : event.touches[0].clientY;
+    // Cursor position from top left
+    x = !isTouchDevice() ? event.clientX : event.touches[0].clientX;
+    y = !isTouchDevice() ? event.clientY : event.touches[0].clientY;
 
+    // Move eyeballs
+    // Currently uses page size - probably just want to use angle and distance from mouse more instead
+    eyes.forEach((eye) => {
+      // Calculate eye movement
+      var eyeMoveX = (eye.clientWidth * x / window.innerWidth) - (eye.clientWidth / 2);
+      var eyeMoveY = (eye.clientWidth * y / window.innerHeight) - (eye.clientHeight / 2);
+
+      // Move eye
+      eye.style.transform = `translate(${eyeMoveX}px, ${eyeMoveY}px)`;
+    });  
+      
+
+    // Iggy following behaviour
+    if (iggyFollow) {
       // Move Iggy
       if ((x > iggyWidth/2) 
-          & (x < pageWidth-(iggyWidth/2)) 
-          & (y > iggyHeight/2) 
-          & (y < pageHeight-(iggyHeight/2))) {
-            iggy.animate({left: `${x}px`, 
-                        top: `${y}px`}, 
-                        {duration: 30000,  
-                        fill: "forwards"});
-            iggy.style.animationPlayState = "running";
+      & (x < pageWidth-(iggyWidth/2)) 
+      & (y > iggyHeight/2) 
+      & (y < pageHeight-(iggyHeight/2))) {
+        iggy.animate({left: `${x}px`, 
+                    top: `${y}px`}, 
+                    {duration: 30000,  
+                    fill: "forwards"});
+        iggy.style.animationPlayState = "running";
       }
-          
-      // Move eyeballs
-      // Currently uses page size - probably just want to use angle and distance from mouse more instead
-      eyes.forEach((eye) => {
-        // Calculate eye movement
-        var eyeMoveX = (eye.clientWidth * x / window.innerWidth) - (eye.clientWidth / 2);
-        var eyeMoveY = (eye.clientWidth * y / window.innerHeight) - (eye.clientHeight / 2);
-
-        // Move eye
-        eye.style.transform = `translate(${eyeMoveX}px, ${eyeMoveY}px)`;
-      });
-    });
+    }
+    
   });
+});
 
 
-  // Iggy mouse eating functionality
-  setInterval(function() {
+// Iggy mouse eating functionality
+setInterval(function() {
+  // Only eat mouse when not idle
+  if (iggyFollow) {
     // Only update iggyBox if mouse isn't eaten, otherwise bounding box is 0
     if (!mouseEaten) {
       iggyBox = iggy.getBoundingClientRect();
     }
 
-    // Check if cursor is within iggy bounding box
+     // Check if cursor is within iggy bounding box
     if ((iggyBox.left < x) 
         & (x < iggyBox.left + iggyWidth)
         & (iggyBox.top < y)
@@ -91,7 +96,6 @@ if (iggyFollow) {
         // Normal cursor
         mouseEaten = false;
       }
-    
 
     // Display correlated Iggy and cursor
     if (mouseEaten) {
@@ -107,11 +111,8 @@ if (iggyFollow) {
       cursor.style.display = "none";
       iggy.style.display = "flex";
     }
-  }, 10);
-} else {
-  // Iggy idle behaviour
-  console.log("Iggy idle");
-}
+  } 
+}, 10);
 
 
 
