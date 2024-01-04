@@ -33,6 +33,12 @@ function isTouchDevice() {
   }
 }
 
+// Toggle Iggy behaviour mode
+  // Set Iggy home
+  // Detect click on Iggy home
+  iggyFollow = true;
+  // iggyFollow = false;
+
 // Listen for cursor/touch movement
 events.forEach((eventType) => {
   document.body.addEventListener(eventType, (event) => {
@@ -45,7 +51,7 @@ events.forEach((eventType) => {
     x = !isTouchDevice() ? event.clientX : event.touches[0].clientX;
     y = !isTouchDevice() ? event.clientY : event.touches[0].clientY;
 
-    // Move eyeballs
+    // Move eyeballs, regardless of iggy behaviour
     // Currently uses page size - probably just want to use angle and distance from mouse more instead
     eyes.forEach((eye) => {
       // Calculate eye movement
